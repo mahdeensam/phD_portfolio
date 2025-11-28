@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sameer Khan | Research Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;700&family=DM+Sans:wght@400;500;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary-dark: #1a1a1a;
+            --accent-burgundy: #8B1538;
+            --accent-gold: #C5A572;
+            --cream: #F5F1E8;
+            --warm-gray: #4A4A4A;
+            --light-gray: #E8E5DD;
+            --pure-white: #FFFFFF;
+            --deep-burgundy: #6B0F2B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--primary-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--light-gray);
+            z-index: 1000;
+            animation: slideDown 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 0 2rem;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .top-nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 0;
+        }
+
+        .top-nav-logo {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .top-nav-logo span {
+            color: var(--accent-burgundy);
+        }
+
+        .top-nav ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-nav a {
+            text-decoration: none;
+            color: var(--primary-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            position: relative;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .top-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%);
+            transition: width 0.3s ease;
+        }
+
+        .top-nav a:hover {
+            color: var(--accent-burgundy);
+        }
+
+        .top-nav a:hover::after,
+        .top-nav a.active::after {
+            width: 100%;
+        }
+
+        /* Floating Navigation Menu */
+        .floating-nav {
+            position: fixed;
+            right: 3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .floating-nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .floating-nav a {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            text-decoration: none;
+            color: var(--primary-dark);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .floating-nav a::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            margin-left: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .floating-nav a:hover::before,
+        .floating-nav a.active::before {
+            background: var(--accent-burgundy);
+            transform: scale(1.5);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 20px rgba(139, 21, 56, 0.5);
+        }
+
+        .floating-nav .nav-label {
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .floating-nav a:hover .nav-label {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Enhanced Hero Section with Video Background */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.85) 0%, rgba(26, 26, 26, 0.75) 25%, rgba(45, 27, 27, 0.8) 50%, rgba(26, 26, 26, 0.75) 75%, rgba(10, 10, 10, 0.85) 100%);
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 21, 56, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(197, 165, 114, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(139, 21, 56, 0.15) 0%, transparent 40%);
+            animation: gradientShift 20s ease infinite;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, rgba(197, 165, 114, 0.3), transparent),
+                radial-gradient(2px 2px at 60% 70%, rgba(255, 255, 255, 0.1), transparent),
+                radial-gradient(1px 1px at 50% 50%, rgba(197, 165, 114, 0.2), transparent),
+                radial-gradient(1px 1px at 80% 10%, rgba(255, 255, 255, 0.15), transparent);
+            background-size: 200% 200%, 150% 150%, 250% 250%, 180% 180%;
+            animation: particles 30s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes particles {
+            0%, 100% { 
+                background-position: 0% 0%, 50% 50%, 100% 0%, 0% 100%;
+            }
+            50% { 
+                background-position: 100% 100%, 0% 0%, 0% 100%, 100% 0%;
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; transform: translateY(0) scale(1); }
+            50% { opacity: 0.8; transform: translateY(-30px) scale(1.05); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeInUp 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-label {
+            font-size: 0.625rem;
+            letter-spacing: 0.35em;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            animation: fadeInUp 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.2s backwards;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .hero-label::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-gold), transparent);
+            animation: expandLine 1s ease-out 0.8s backwards;
+        }
+
+        @keyframes expandLine {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+
+        .hero h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 300;
+            color: var(--pure-white);
+            margin-bottom: 2rem;
+            line-height: 1.05;
+            animation: fadeInUp 1.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s backwards;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h1 strong {
+            font-weight: 700;
+            display: block;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #D4B583 50%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s ease-in-out infinite;
+            background-size: 200% 100%;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-family: 'Lora', serif;
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            color: var(--light-gray);
+            max-width: 850px;
+            margin-bottom: 3rem;
+            font-style: italic;
+            line-height: 1.6;
+            overflow: hidden;
+            border-right: 3px solid var(--accent-gold);
+            white-space: nowrap;
+            animation: 
+                typing 4s steps(80) 1.2s forwards,
+                blink 0.75s step-end infinite,
+                removeCaretAndFloat 0.5s 5.2s forwards;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--accent-gold); }
+        }
+
+        @keyframes removeCaretAndFloat {
+            to {
+                border-right: none;
+                white-space: normal;
+            }
+        }
+
+        .hero-3d-model {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 550px;
+            height: 550px;
+            z-index: 3;
+            opacity: 0;
+            animation: fadeIn 2s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+            filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.4));
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50%) translateX(80px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(-50%) translateX(0) scale(1);
+            }
+        }
+
+        #brain-model {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            font-size: 0.75rem;
+            color: var(--cream);
+            animation: fadeInUp 1.4s cubic-bezier(0.4, 0, 0.2, 1) 1s backwards;
+        }
+
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .hero-meta-item::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-burgundy);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent-burgundy);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        /* Section Styling */
+        section {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        section > * {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        section:nth-of-type(odd) {
+            background: var(--cream);
+            position: relative;
+        }
+
+        section:nth-of-type(odd)::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(197, 165, 114, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(139, 21, 56, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        section:nth-of-type(even) {
+            background: var(--pure-white);
+            box-shadow: inset 0 1px 0 var(--light-gray), inset 0 -1px 0 var(--light-gray);
+        }
+
+        #current {
+            background: linear-gradient(135deg, #f9f7f2 0%, #f0ebe0 50%, #f9f7f2 100%);
+            position: relative;
+        }
+
+        #current::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(197, 165, 114, 0.02) 50px, rgba(197, 165, 114, 0.02) 100px);
+            pointer-events: none;
+        }
+
+        #projects {
+            background: var(--pure-white);
+            position: relative;
+        }
+
+        #projects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(45deg, transparent, transparent 120px, rgba(197, 165, 114, 0.015) 120px, rgba(197, 165, 114, 0.015) 240px);
+            pointer-events: none;
+        }
+
+        .section-header {
+            margin-bottom: 6rem;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            color: var(--accent-burgundy);
+            text-transform: uppercase;
+            font-weight: 700;
+            display: inline-block;
+            position: relative;
+            white-space: nowrap;
+            min-width: 180px;
+        }
+
+        .section-label::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--accent-burgundy);
+            border-radius: 50%;
+        }
+
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--primary-dark);
+            line-height: 1.2;
+            position: relative;
+            flex: 1;
+            margin: 0;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%);
+        }
+
+        /* Alternative vertical layout for mobile */
+        @media (max-width: 768px) {
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+                padding-bottom: 1.5rem;
+            }
+
+            .section-label {
+                min-width: auto;
+            }
+        }
+
+        /* Research Cards */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .research-card {
+            background: linear-gradient(135deg, var(--pure-white) 0%, #fafaf8 100%);
+            padding: 3rem;
+            border: 1px solid var(--light-gray);
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .research-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: linear-gradient(180deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%);
+            transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .research-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: radial-gradient(circle at top right, rgba(197, 165, 114, 0.05) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .research-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.08),
+                0 10px 20px rgba(139, 21, 56, 0.05);
+        }
+
+        .research-card:hover::before {
+            height: 100%;
+        }
+
+        .research-card:hover::after {
+            opacity: 1;
+        }
+
+        .research-card h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+            line-height: 1.3;
+        }
+
+        .research-card p {
+            color: var(--warm-gray);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Projects */
+        .projects-container {
+            position: relative;
+        }
+
+        .project {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(232, 229, 221, 0.5);
+            margin-bottom: 5rem;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 550px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .project:nth-child(even) {
+            direction: rtl;
+        }
+
+        .project:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .project::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-burgundy) 0%, var(--accent-gold) 50%, var(--accent-burgundy) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project:hover {
+            transform: translateY(-12px) scale(1.01);
+            box-shadow: 
+                0 40px 80px rgba(0, 0, 0, 0.12),
+                0 20px 40px rgba(139, 21, 56, 0.08);
+        }
+
+        .project:hover::after {
+            transform: scaleX(1);
+        }
+
+        .project:hover .project-media img {
+            transform: scale(1.15) rotate(3deg);
+        }
+
+        .project:hover .project-media video {
+            transform: scale(1.08);
+        }
+
+        .project-media {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            background: var(--primary-dark);
+        }
+
+        .project-media img,
+        .project-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-media::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(26, 26, 26, 0.4) 100%);
+            pointer-events: none;
+        }
+
+        .project-media-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--deep-burgundy) 0%, var(--accent-burgundy) 50%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-media-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 250%;
+            height: 250%;
+            background: radial-gradient(circle, rgba(197, 165, 114, 0.15) 0%, transparent 70%);
+            animation: rotate 25s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .project-media-placeholder svg {
+            width: 100px;
+            height: 100px;
+            opacity: 0.4;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3));
+        }
+
+        .project-content {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .project h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            flex: 1;
+            line-height: 1.2;
+        }
+
+        .project-date {
+            font-size: 0.875rem;
+            color: var(--accent-burgundy);
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, rgba(139, 21, 56, 0.1) 0%, transparent 100%);
+            padding: 0.5rem 1rem;
+        }
+
+        .project-description {
+            color: var(--warm-gray);
+            line-height: 1.9;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .project-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .highlight {
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--cream) 0%, #f0ebe0 100%);
+            border-left: 4px solid var(--accent-gold);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(197, 165, 114, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .highlight:hover {
+            transform: translateX(8px) translateY(-4px);
+            border-left-width: 6px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .highlight:hover::before {
+            opacity: 1;
+        }
+
+        .highlight h4 {
+            font-size: 0.875rem;
+            letter-spacing: 0.15em;
+            color: var(--accent-burgundy);
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .highlight p {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        /* Publications */
+        .publication {
+            padding: 2.5rem;
+            border-bottom: 1px solid var(--light-gray);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .publication::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: linear-gradient(180deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%);
+            transition: width 0.4s ease;
+        }
+
+        .publication:hover {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, var(--pure-white) 100%);
+            padding-left: 3rem;
+        }
+
+        .publication:hover::before {
+            width: 4px;
+        }
+
+        .publication:last-child {
+            border-bottom: none;
+        }
+
+        .publication-title {
+            font-family: 'Lora', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .publication-meta {
+            font-size: 1rem;
+            color: var(--warm-gray);
+            margin-bottom: 0.75rem;
+        }
+
+        .publication-status {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--accent-burgundy);
+            color: white;
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 0.75rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(139, 21, 56, 0.3);
+        }
+
+        /* Current Work */
+        .current-work {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #2d1b1b 50%, var(--primary-dark) 100%);
+            color: var(--cream);
+            padding: 4rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+            border-left: 6px solid var(--accent-gold);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .current-work::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(197, 165, 114, 0.15) 0%, transparent 70%);
+            animation: pulse 10s ease-in-out infinite;
+        }
+
+        .current-work::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(139, 21, 56, 0.1) 0%, transparent 70%);
+            animation: pulse 12s ease-in-out infinite reverse;
+        }
+
+        .current-work h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #D4B583 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .current-work p {
+            font-size: 1.15rem;
+            line-height: 2;
+            max-width: 900px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .skill-category {
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--pure-white);
+            padding: 2.5rem;
+            border: 1px solid var(--light-gray);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-category:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-category h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-burgundy);
+            font-weight: 700;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--light-gray);
+            color: var(--warm-gray);
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .skill-list li:hover {
+            padding-left: 1.5rem;
+            color: var(--primary-dark);
+            border-color: var(--accent-burgundy);
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 3rem 2.5rem;
+            background: linear-gradient(135deg, var(--pure-white) 0%, #fafaf8 100%);
+            border: 1px solid var(--light-gray);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .contact-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .contact-item h3 {
+            font-size: 0.875rem;
+            letter-spacing: 0.15em;
+            color: var(--accent-burgundy);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .contact-item a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent-burgundy);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #0a0a0a 100%);
+            color: var(--cream);
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--accent-gold) 50%, transparent 100%);
+        }
+
+        footer p {
+            font-size: 1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .stagger-1 { animation-delay: 0.15s; }
+        .stagger-2 { animation-delay: 0.3s; }
+        .stagger-3 { animation-delay: 0.45s; }
+        .stagger-4 { animation-delay: 0.6s; }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero-3d-model {
+                width: 450px;
+                height: 450px;
+                right: 2%;
+            }
+
+            .floating-nav {
+                right: 2rem;
+            }
+        }
+
+        @media (max-width: 968px) {
+            .project {
+                grid-template-columns: 1fr !important;
+                direction: ltr !important;
+            }
+
+            .project:nth-child(even) {
+                direction: ltr !important;
+            }
+
+            .project-media {
+                height: 400px;
+            }
+
+            .hero-3d-model {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 350px;
+                height: 350px;
+                margin: 3rem auto;
+                animation: fadeIn 2s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(40px) scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+
+            .floating-nav {
+                display: none;
+            }
+
+            .top-nav ul {
+                gap: 1.5rem;
+            }
+
+            .top-nav-content {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 85vh;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .project-content {
+                padding: 2.5rem;
+            }
+
+            .project-media,
+            .project-media-placeholder {
+                height: 300px;
+            }
+
+            .hero-3d-model {
+                width: 280px;
+                height: 280px;
+            }
+
+            .current-work {
+                padding: 3rem 2rem;
+            }
+
+            .top-nav ul {
+                gap: 1rem;
+            }
+
+            .top-nav a {
+                font-size: 0.8rem;
+            }
+
+            .top-nav-logo {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <!-- Background Video -->
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="hero.mp4" type="video/mp4">
+        </video>
+        
+        <!-- Video Overlay -->
+        <div class="hero-video-overlay"></div>
+        
+        <!-- 3D Brain Model -->
+        <div class="hero-3d-model">
+            <canvas id="brain-model"></canvas>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-label">Research • Human Development, Learning & Teaching</div>
+            <h1>Mahdeen<br><strong>Sameer Khan</strong></h1>
+            <p class="hero-subtitle">Bridging cognitive science and educational technology to understand how learners develop literacy skills and academic language</p>
+            <div class="hero-meta">
+                <div class="hero-meta-item">Masters' @ Harvard Graduate School of Education</div>
+                <div class="hero-meta-item">READS Lab</div>
+                <div class="hero-meta-item">Human Development & Learning Sciences</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Me Section -->
+    <section id="about" style="background: var(--pure-white); padding: 8rem 2rem;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div class="section-header">
+                <div class="section-label">About Me</div>
+                <h2 class="section-title">My Journey to Educational Research</h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 4rem;">
+                <!-- Profile Image -->
+                <div style="position: relative; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);">
+                    <div style="position: relative; overflow: hidden; border: 1px solid var(--light-gray); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);">
+                        <img src="images/Sameer Khan Profile.jpeg" alt="Sameer Khan" style="width: 100%; height: auto; display: block; object-fit: cover;">
+                        <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(to top, rgba(26, 26, 26, 0.8), transparent);"></div>
+                    </div>
+                    <!-- Decorative accent -->
+                    <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: linear-gradient(135deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%); opacity: 0.1; z-index: -1;"></div>
+                    <div style="position: absolute; bottom: -20px; left: -20px; width: 120px; height: 120px; background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-burgundy) 100%); opacity: 0.1; z-index: -1;"></div>
+                </div>
+
+                <!-- About Content -->
+                <div style="animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s backwards;">
+                    <h3 style="font-family: 'Crimson Pro', serif; font-size: 2rem; color: var(--accent-burgundy); margin-bottom: 1.5rem; font-weight: 700;">Unlocking Human Potential Through Learning Science</h3>
+                    
+                    <p style="color: var(--warm-gray); line-height: 1.9; font-size: 1.05rem; margin-bottom: 1.5rem;">
+                        Watching my younger brother and sister Sarah struggle with learning (despite their intelligence) made me question why some students seem to absorb information effortlessly while others work twice as hard for half the results. I became obsessed with memory and learning, attempting to memorize vast amounts of information in seconds, frustrated that I didn't have photographic memory like some people seemed to possess.
+                    </p>
+
+                    <p style="color: var(--warm-gray); line-height: 1.9; font-size: 1.05rem; margin-bottom: 1.5rem;">
+                        This frustration led me down a transformative path. I discovered memory palaces, mnemonic techniques, and spaced repetition systems. More importantly, I learned that "photographic memory" isn't innate. It's about leveraging how our brains naturally process and retain information. The revelation was profound: learning isn't about natural talent or fixed ability. It's about understanding the cognitive architecture of memory, attention, and comprehension, then designing environments and tools that work with our brain's mechanisms rather than against them.
+                    </p>
+
+                    <p style="color: var(--warm-gray); line-height: 1.9; font-size: 1.05rem;">
+                        This insight transformed my entire approach to education. My research now focuses on unlocking learning potential for all students, especially those who (like my siblings) face barriers that have nothing to do with their capability. By integrating cognitive science, developmental psychology, and educational technology, I'm working to make learning more accessible, efficient, and equitable. Every child deserves tools and environments designed around how humans actually learn, not outdated assumptions about who can and cannot succeed.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mission Statement -->
+            <div style="background: linear-gradient(135deg, var(--cream) 0%, #f0ebe0 100%); padding: 3rem; border-left: 5px solid var(--accent-burgundy); margin-top: 3rem; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s backwards;">
+                <h3 style="font-family: 'Crimson Pro', serif; font-size: 1.75rem; color: var(--primary-dark); margin-bottom: 1.5rem; font-weight: 700;">My Mission</h3>
+                <p style="color: var(--warm-gray); line-height: 2; font-size: 1.1rem; margin-bottom: 1rem;">
+                    I'm dedicated to democratizing effective learning by bridging cognitive science, educational technology, and human development. My research explores how we can design learning environments and assessment tools that align with how our brains naturally process information, making education more accessible, efficient, and equitable for all learners.
+                </p>
+                <p style="color: var(--warm-gray); line-height: 2; font-size: 1.1rem;">
+                    Through automated reading assessments, accessible learning platforms, and evidence-based interventions, I work to unlock each student's potential by removing artificial barriers and leveraging insights from memory science, cognitive load theory, and developmental psychology. Every learner deserves tools designed around human cognition, not outdated assumptions about ability.
+                </p>
+            </div>
+
+            <!-- Key Experiences Grid -->
+            <div style="margin-top: 4rem;">
+                <h3 style="font-family: 'Crimson Pro', serif; font-size: 2rem; color: var(--primary-dark); margin-bottom: 2.5rem; font-weight: 700; text-align: center;">My Learning Science Journey</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                    <div style="background: var(--pure-white); padding: 2.5rem; border: 1px solid var(--light-gray); transition: all 0.3s ease; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s backwards;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"></path>
+                                <path d="M8.5 8.5v.01"></path>
+                                <path d="M16 15.5v.01"></path>
+                                <path d="M12 12v.01"></path>
+                                <path d="M11 17v.01"></path>
+                                <path d="M7 14v.01"></path>
+                            </svg>
+                        </div>
+                        <h4 style="font-family: 'Crimson Pro', serif; font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-dark); font-weight: 700;">Memory & Cognition</h4>
+                        <p style="color: var(--warm-gray); line-height: 1.8;">From struggling to memorize information to mastering memory palaces and mnemonic systems, I discovered how understanding cognitive architecture transforms learning efficiency.</p>
+                    </div>
+
+                    <div style="background: var(--pure-white); padding: 2.5rem; border: 1px solid var(--light-gray); transition: all 0.3s ease; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.6s backwards;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M12 1v6m0 6v6"></path>
+                                <path d="m4.2 4.2 4.2 4.2m5.6 5.6 4.2 4.2"></path>
+                                <path d="M1 12h6m6 0h6"></path>
+                                <path d="m4.2 19.8 4.2-4.2m5.6-5.6 4.2-4.2"></path>
+                            </svg>
+                        </div>
+                        <h4 style="font-family: 'Crimson Pro', serif; font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-dark); font-weight: 700;">Research & Evidence</h4>
+                        <p style="color: var(--warm-gray); line-height: 1.8;">Combining computational methods with developmental science to build tools that work with human cognition, from automated assessments to accessible learning platforms.</p>
+                    </div>
+
+                    <div style="background: var(--pure-white); padding: 2.5rem; border: 1px solid var(--light-gray); transition: all 0.3s ease; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.7s backwards;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                                <path d="M20 3v4"></path>
+                                <path d="M22 5h-4"></path>
+                            </svg>
+                        </div>
+                        <h4 style="font-family: 'Crimson Pro', serif; font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-dark); font-weight: 700;">Unlocking Potential</h4>
+                        <p style="color: var(--warm-gray); line-height: 1.8;">Dedicated to removing barriers for all learners by designing educational technologies and interventions grounded in how humans actually learn, remember, and grow.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive styles -->
+        <style>
+            @media (max-width: 968px) {
+                #about > div > div:nth-of-type(2) {
+                    grid-template-columns: 1fr !important;
+                    gap: 3rem !important;
+                }
+            }
+        </style>
+    </section>
+
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="top-nav-content">
+            <a href="#" class="top-nav-logo">Sameer <span>Khan</span></a>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#current">Current Work</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Floating Navigation -->
+    <nav class="floating-nav">
+        <ul>
+            <li><a href="#about"><span class="nav-label">About</span></a></li>
+            <li><a href="#research"><span class="nav-label">Research</span></a></li>
+            <li><a href="#current"><span class="nav-label">Current</span></a></li>
+            <li><a href="#projects"><span class="nav-label">Projects</span></a></li>
+            <li><a href="#publications"><span class="nav-label">Publications</span></a></li>
+            <li><a href="#contact"><span class="nav-label">Contact</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- Research Focus Section -->
+    <section id="research">
+        <div class="section-header">
+            <div class="section-label">Research Agenda</div>
+            <h2 class="section-title">Core Research Questions</h2>
+        </div>
+
+        <div class="research-grid">
+            <div class="research-card fade-in stagger-1">
+                <h3>Reading Development & Assessment</h3>
+                <p>How do children develop reading fluency and comprehension? Investigating automated oral reading assessments that capture developmental trajectories while integrating cognitive models of reading acquisition and educational measurement principles to reduce teacher burden.</p>
+            </div>
+
+            <div class="research-card fade-in stagger-2">
+                <h3>Cognitive Load & Digital Learning</h3>
+                <p>How do interface design decisions in digital texts affect cognitive load and comprehension strategy development? Examining how learners navigate multimodal content, particularly those who rely on screen readers or operate in multilingual contexts.</p>
+            </div>
+
+            <div class="research-card fade-in stagger-3">
+                <h3>Learning Sciences & Accessibility</h3>
+                <p>How can learning sciences principles and Universal Design for Learning be operationalized within adaptive platforms? Exploring how to reduce extraneous cognitive load while supporting the development of academic language and self-regulated learning strategies.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Work -->
+    <section id="current">
+        <div class="current-work">
+            <h3>Current Research at READS Lab</h3>
+            <p>Developing automated reading fluency assessment systems that analyze classroom audio recordings using advanced speech processing. Working with teacher and student recordings, I fine-tune speech-to-text models (Whisper, Google Speech-to-Text) and build end-to-end pipelines that convert audio to text, then transform speech into vector representations. These embeddings capture prosodic features, emotional tone, sentiment patterns, and vocabulary networks across different grade levels. By analyzing how these linguistic and affective dimensions evolve developmentally, the system identifies reading fluency indicators while reducing manual coding by 60% and maintaining 90%+ accuracy. Additionally conducting causal inference analyses (difference-in-differences, propensity score matching) to evaluate how vocabulary and background knowledge interventions influence comprehension trajectories.</p>
+        </div>
+
+        <div class="section-header" style="margin-top: 5rem;">
+            <div class="section-label">Research Interests</div>
+            <h2 class="section-title">Areas of Focus</h2>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skill-category fade-in">
+                <h3>Core Domains</h3>
+                <ul class="skill-list">
+                    <li>Literacy Development & Reading Acquisition</li>
+                    <li>Cognitive Development & Learning Theory</li>
+                    <li>Self-Regulated Learning & Metacognition</li>
+                    <li>Academic Language Development</li>
+                    <li>Learning Sciences & Instructional Design</li>
+                </ul>
+            </div>
+
+            <div class="skill-category fade-in stagger-1">
+                <h3>Methodological Expertise</h3>
+                <ul class="skill-list">
+                    <li>Developmental Research Methods</li>
+                    <li>Causal Inference & Quasi-Experimental Design</li>
+                    <li>Educational Measurement & Psychometrics</li>
+                    <li>Mixed Methods Research</li>
+                    <li>Computational Modeling of Learning</li>
+                </ul>
+            </div>
+
+            <div class="skill-category fade-in stagger-2">
+                <h3>Technical Skills</h3>
+                <ul class="skill-list">
+                    <li>Python, R, SQL</li>
+                    <li>Machine Learning (TensorFlow, PyTorch)</li>
+                    <li>Natural Language Processing</li>
+                    <li>Learning Analytics & Educational Data Mining</li>
+                    <li>Data Visualization (R Shiny, Tableau)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-header">
+            <div class="section-label">Research Portfolio</div>
+            <h2 class="section-title">Key Projects</h2>
+        </div>
+
+        <div class="projects-container">
+            <div class="project fade-in">
+                <div class="project-media">
+                    <video autoplay muted loop playsinline>
+                        <source src="images/Video1.mp4" type="video/mp4">
+                    </video>
+                </div>
+                
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>Automated Assessment of Reading Development</h3>
+                        <span class="project-date">2025 – Present</span>
+                    </div>
+                    <p class="project-description">
+                        Investigating reading fluency development through automated assessment that combines cognitive models of reading acquisition with machine learning. The system analyzes 5,000+ student recordings using speech recognition (Whisper, Google Speech-to-Text) and forced alignment to extract developmental indicators: words per minute, accuracy patterns, self-correction behaviors. This provides insights into how children progress through stages of reading development while reducing manual coding by 60%.
+                    </p>
+                    <div class="project-highlights">
+                        <div class="highlight">
+                            <h4>Impact</h4>
+                            <p>60% reduction</p>
+                        </div>
+                        <div class="highlight">
+                            <h4>Accuracy</h4>
+                            <p>90%+ rate</p>
+                        </div>
+                        <div class="highlight">
+                            <h4>Scale</h4>
+                            <p>5,000+ samples</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project fade-in">
+                <div class="project-media">
+                    <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=1200&h=800&fit=crop" alt="Accessible Learning Interface">
+                </div>
+                
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>Learning Sciences Approach to Financial Literacy</h3>
+                        <span class="project-date">2024 – 2025</span>
+                    </div>
+                    <p class="project-description">
+                        Applied cognitive load theory and Universal Design for Learning to develop an accessible financial literacy platform for blind and low-vision learners. Designed learning experiences that scaffold executive function and reduce extraneous cognitive load through ARIA landmarks, voice navigation, and Braille display simulations. Achieved 80% task completion versus 48% industry baseline, with learners showing 55% increase in financial confidence. This demonstrates how learning sciences principles can inform accessible interface design.
+                    </p>
+                    <div class="project-highlights">
+                        <div class="highlight">
+                            <h4>Completion</h4>
+                            <p>80% vs 48%</p>
+                        </div>
+                        <div class="highlight">
+                            <h4>Participants</h4>
+                            <p>50 learners</p>
+                        </div>
+                        <div class="highlight">
+                            <h4>Confidence</h4>
+                            <p>55% increase</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project fade-in">
+                <div class="project-media">
+                    <video autoplay muted loop playsinline>
+                        <source src="images/Video3.mp4" type="video/mp4">
+                    </video>
+                </div>
+                
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>Understanding Reading Comprehension Development & in High Stake Situations</h3>
+                        <span class="project-date">2025 – Present</span>
+                    </div>
+                    <p class="project-description">
+                        Using causal inference methods to understand how targeted interventions support reading comprehension development in students of different ages. One Case Study was High-stake Situation learning in Financial Institutions; Employing difference-in-differences and propensity score matching to evaluate how background knowledge building and vocabulary instruction influence oral reading comprehension trajectories. Developed R Shiny dashboards that visualize individual developmental pathways, helping teachers identify students who may benefit from additional support based on their learning progression.
+                    </p>
+                    <div class="project-highlights">
+                        <div class="highlight">
+                            <h4>Methods</h4>
+                            <p>DiD, PSM</p>
+                        </div>
+                        <div class="highlight">
+                            <h4>Tools</h4>
+                            <p>R Shiny</p>
+                        </div>
+                        <div class="highlight">
+                            <h4>Focus</h4>
+                            <p>K-5 schools, Adults (Investment Banking)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project fade-in">
+                <div class="project-media">
+                    <img src="images/image4.jpg" alt="ADHD Learning Support System">
+                </div>
+                
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>Supporting Self-Regulated Learning in Students with ADHD</h3>
+                        <span class="project-date">2023 – 2024</span>
+                    </div>
+                    <p class="project-description">
+                        Developed AI-powered learning tool grounded in Zimmerman's self-regulated learning framework to support students with attention difficulties. Integrated speech-to-text and NLP to scaffold executive functions: working memory, planning, self-monitoring. This promotes autonomy through adaptive support that gradually fades as students develop metacognitive strategies. The system models the cyclical nature of self-regulation (forethought, performance, self-reflection) to help students become more independent learners.
+                    </p>
+                </div>
+            </div>
+
+            <div class="project fade-in">
+                <div class="project-media">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop" alt="Machine Learning Analytics">
+                </div>
+                
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>Adolescent Development & Academic Engagement</h3>
+                        <span class="project-date">2024</span>
+                    </div>
+                    <p class="project-description">
+                        Applied developmental psychology and motivation theory to build early warning systems for academic disengagement. Using machine learning (random forests, XGBoost) to identify at-risk students with 91% accuracy based on longitudinal patterns. The system is grounded in expectancy-value theory and stage-environment fit theory, recognizing how developmental transitions and motivational beliefs influence academic trajectories. Built FERPA-compliant data pipelines to support developmentally-appropriate, timely interventions.
+                    </p>
+                    <div class="project-highlights">
+                        <div class="highlight">
+                            <h4>Accuracy</h4>
+                            <p>91%</p>
+                        </div>
+                        <div class="highlight">
+                            <h4>Models</h4>
+                            <p>RF, XGBoost</p>
+                        </div>
+                        <div class="highlight">
+                            <h4>Privacy</h4>
+                            <p>FERPA-compliant</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project fade-in">
+                <div class="project-media">
+                    <img src="https://images.unsplash.com/photo-1509228468518-180dd4864904?w=1200&h=800&fit=crop" alt="Education Policy Research">
+                </div>
+                
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>Early Childhood Development & Educational Investment</h3>
+                        <span class="project-date">2023 – 2024</span>
+                    </div>
+                    <p class="project-description">
+                        Examined how early childhood educational investments influence developmental outcomes in literacy and mathematics over 10-year period using longitudinal fixed-effects models. Drawing on developmental science research showing critical periods for skill acquisition, identified 12% performance improvements associated with targeted PreK interventions. Developed interactive visualizations (R Shiny, Tableau) to communicate findings about sensitive periods and cumulative development to educators and policymakers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications">
+        <div class="section-header">
+            <div class="section-label">Scholarly Work</div>
+            <h2 class="section-title">Publications & Presentations</h2>
+        </div>
+
+        <div class="publication fade-in">
+            <h4 class="publication-title">Bridging the Gap: Integrating FinTech into Higher Education for Financial Literacy and Innovation</h4>
+            <p class="publication-meta">Khan, M. S. (2023). Journal of Educational Technology & Society.</p>
+            <span class="publication-status">Under Review</span>
+        </div>
+
+        <div class="publication fade-in">
+            <h4 class="publication-title">AI-Enhanced Adaptive Learning in FinTech Education: Personalizing Financial Training</h4>
+            <p class="publication-meta">Khan, M. S. (2024). International Journal of FinTech Innovations.</p>
+            <span class="publication-status">Manuscript Submitted</span>
+        </div>
+
+        <div class="publication fade-in">
+            <h4 class="publication-title">Visceral Adiposity Index in Type 2 Diabetes Mellitus and Its Risk for Cardiovascular Disease</h4>
+            <p class="publication-meta">Parveen, K. H., et al. (2023). Journal of Dhaka Medical College, 30(1), 68–75.</p>
+            <span class="publication-status" style="background: var(--accent-gold);">Published</span>
+        </div>
+
+        <div style="margin-top: 4rem;">
+            <h3 style="font-family: 'Crimson Pro', serif; font-size: 2.25rem; margin-bottom: 2.5rem; color: var(--primary-dark); font-weight: 700;">Selected Conference Presentations</h3>
+            
+            <div class="publication fade-in">
+                <h4 class="publication-title">The Colby Liberal Arts Symposium (CLAS) 2023-2024</h4>
+                <p class="publication-meta">Multiple presentations on integrating AI in education and accessibility technologies to address learning barriers</p>
+            </div>
+
+            <div class="publication fade-in">
+                <h4 class="publication-title">Big Data, IoT and Machine Learning (BIM 2023)</h4>
+                <p class="publication-meta">Machine learning algorithms for predictive modeling in education policy analysis, focusing on resource allocation and student performance forecasting</p>
+            </div>
+
+            <div class="publication fade-in">
+                <h4 class="publication-title">Bangladesh Innovation Summit (2023)</h4>
+                <p class="publication-meta">AI-powered tools for improving literacy and numeracy outcomes in underprivileged schools</p>
+            </div>
+
+            <div class="publication fade-in">
+                <h4 class="publication-title">4th International Conference on Sustainable Technologies for Industry 4.0 (2022)</h4>
+                <p class="publication-meta">Leveraging AI and EdTech to design accessible learning platforms for blind and visually impaired students</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" style="background: linear-gradient(135deg, var(--primary-dark) 0%, #2d1b1b 50%, var(--primary-dark) 100%); position: relative; overflow: hidden;">
+        <!-- Animated background elements -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.1; pointer-events: none;">
+            <div style="position: absolute; top: 10%; left: 5%; width: 300px; height: 300px; background: radial-gradient(circle, var(--accent-burgundy) 0%, transparent 70%); animation: pulse 8s ease-in-out infinite;"></div>
+            <div style="position: absolute; bottom: 15%; right: 10%; width: 400px; height: 400px; background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%); animation: pulse 10s ease-in-out infinite reverse;"></div>
+        </div>
+
+        <div style="max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;">
+            <div class="section-header" style="border-bottom: 1px solid rgba(197, 165, 114, 0.3);">
+                <div class="section-label" style="color: var(--accent-gold);">Get In Touch</div>
+                <h2 class="section-title" style="color: var(--pure-white);">Let's Connect</h2>
+            </div>
+
+            <!-- Introduction text -->
+            <div style="text-align: center; margin-bottom: 5rem; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s backwards;">
+                <p style="font-family: 'Lora', serif; font-size: 1.35rem; color: var(--cream); max-width: 850px; margin: 0 auto; line-height: 2; font-style: italic;">
+                    I am actively seeking collaborations on research exploring how children and adolescents develop literacy skills, self-regulated learning strategies, and academic language. Particularly interested in projects at the intersection of developmental psychology, learning sciences, and educational technology.
+                </p>
+            </div>
+
+            <!-- Contact cards with enhanced styling -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; margin-bottom: 5rem;">
+                <div style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(197, 165, 114, 0.2); padding: 3rem 2.5rem; text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s backwards;" onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='var(--accent-gold)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(197, 165, 114, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)'">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                    </div>
+                    <h3 style="font-size: 0.875rem; letter-spacing: 0.2em; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 1.5rem; font-weight: 700;">Email</h3>
+                    <a href="mailto:Sameerkhan@gse.harvard.edu" style="color: var(--cream); text-decoration: none; font-weight: 500; font-size: 1.05rem; transition: all 0.3s ease; display: block;" onmouseover="this.style.color='var(--accent-gold)'" onmouseout="this.style.color='var(--cream)'">Sameerkhan@gse.harvard.edu</a>
+                </div>
+
+                <div style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(197, 165, 114, 0.2); padding: 3rem 2.5rem; text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s backwards;" onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='var(--accent-gold)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(197, 165, 114, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)'">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                    </div>
+                    <h3 style="font-size: 0.875rem; letter-spacing: 0.2em; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 1.5rem; font-weight: 700;">Phone</h3>
+                    <a href="tel:+12072506972" style="color: var(--cream); text-decoration: none; font-weight: 500; font-size: 1.05rem; transition: all 0.3s ease; display: block;" onmouseover="this.style.color='var(--accent-gold)'" onmouseout="this.style.color='var(--cream)'">(207) 250-6972</a>
+                </div>
+
+                <div style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(197, 165, 114, 0.2); padding: 3rem 2.5rem; text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.5s backwards;" onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='var(--accent-gold)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(197, 165, 114, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)'">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </div>
+                    <h3 style="font-size: 0.875rem; letter-spacing: 0.2em; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 1.5rem; font-weight: 700;">LinkedIn</h3>
+                    <a href="#" target="_blank" style="color: var(--cream); text-decoration: none; font-weight: 500; font-size: 1.05rem; transition: all 0.3s ease; display: block;" onmouseover="this.style.color='var(--accent-gold)'" onmouseout="this.style.color='var(--cream)'">linkedin.com/in/mahdeen-sameer-khan/</a>
+                </div>
+
+                <div style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); backdrop-filter: blur(10px); border: 1px solid rgba(197, 165, 114, 0.2); padding: 3rem 2.5rem; text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.6s backwards;" onmouseover="this.style.transform='translateY(-10px)'; this.style.borderColor='var(--accent-gold)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)'" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='rgba(197, 165, 114, 0.2)'; this.style.background='linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)'">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </div>
+                    <h3 style="font-size: 0.875rem; letter-spacing: 0.2em; color: var(--accent-gold); text-transform: uppercase; margin-bottom: 1.5rem; font-weight: 700;">GitHub</h3>
+                    <a href="#" target="_blank" style="color: var(--cream); text-decoration: none; font-weight: 500; font-size: 1.05rem; transition: all 0.3s ease; display: block;" onmouseover="this.style.color='var(--accent-gold)'" onmouseout="this.style.color='var(--cream)'">github.com/mahdeensam</a>
+                </div>
+            </div>
+
+            <!-- Location & availability -->
+            <div style="background: linear-gradient(135deg, rgba(139, 21, 56, 0.1) 0%, rgba(197, 165, 114, 0.05) 100%); border: 1px solid rgba(197, 165, 114, 0.3); padding: 3.5rem; position: relative; overflow: hidden; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.7s backwards;">
+                <div style="position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(197, 165, 114, 0.1) 0%, transparent 70%); pointer-events: none;"></div>
+                
+                <div style="display: grid; grid-template-columns: auto 1fr; gap: 3rem; align-items: center;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                    </div>
+                    
+                    <div>
+                        <h3 style="font-family: 'Crimson Pro', serif; font-size: 1.75rem; color: var(--cream); margin-bottom: 1rem; font-weight: 700;">Based in Cambridge, MA</h3>
+                        <p style="color: rgba(245, 241, 232, 0.9); font-size: 1.1rem; line-height: 1.8; margin: 0;">
+                            Currently at Harvard Graduate School of Education. Available for research collaborations, speaking engagements, and consulting opportunities in educational technology, learning sciences, and accessible design.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to action -->
+            <div style="text-align: center; margin-top: 4rem; animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.8s backwards;">
+                <p style="font-size: 1.05rem; color: rgba(245, 241, 232, 0.8); margin-bottom: 2rem; line-height: 1.9;">
+                    Whether you're interested in collaborative research, need expertise in automated assessments, or want to discuss accessible learning design, I'd love to hear from you.
+                </p>
+                <a href="mailto:Sameerkhan@gse.harvard.edu" style="display: inline-block; padding: 1.25rem 3rem; background: linear-gradient(135deg, var(--accent-burgundy) 0%, var(--accent-gold) 100%); color: white; text-decoration: none; font-weight: 700; font-size: 1.05rem; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(139, 21, 56, 0.3);" onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 40px rgba(139, 21, 56, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(139, 21, 56, 0.3)'">Start a Conversation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Mahdeen Sameer Khan. All rights reserved.</p>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem;">Research in Education: Human Development, Learning & Teaching | Harvard Graduate School of Education</p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        // Initialize 3D Brain Model
+        const canvas = document.getElementById('brain-model');
+        const scene = new THREE.Scene();
+        
+        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+        camera.position.z = 3;
+
+        const renderer = new THREE.WebGLRenderer({ 
+            canvas: canvas,
+            alpha: true,
+            antialias: true
+        });
+        
+        const container = document.querySelector('.hero-3d-model');
+        renderer.setSize(container.offsetWidth, container.offsetHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Enhanced Lighting for white model
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+        scene.add(ambientLight);
+
+        const pointLight1 = new THREE.PointLight(0xffffff, 1.5);
+        pointLight1.position.set(5, 5, 5);
+        scene.add(pointLight1);
+
+        const pointLight2 = new THREE.PointLight(0xC5A572, 0.8);
+        pointLight2.position.set(-5, -5, 5);
+        scene.add(pointLight2);
+
+        const pointLight3 = new THREE.PointLight(0xffffff, 1);
+        pointLight3.position.set(0, 5, -5);
+        scene.add(pointLight3);
+
+        // Load GLTF Model
+        const loader = new GLTFLoader();
+        let brainModel;
+
+        loader.load(
+            './models/brain_hologram.glb',
+            function (gltf) {
+                brainModel = gltf.scene;
+                
+                brainModel.scale.set(1.6, 1.6, 1.6);
+                brainModel.position.set(0, 0, 0);
+                
+                brainModel.traverse((child) => {
+                    if (child.isMesh) {
+                        child.material = new THREE.MeshPhongMaterial({
+                            color: 0xffffff,
+                            transparent: true,
+                            opacity: 0.95,
+                            emissive: 0xffffff,
+                            emissiveIntensity: 0.3,
+                            metalness: 0.1,
+                            roughness: 0.2,
+                            shininess: 100
+                        });
+                    }
+                });
+                
+                scene.add(brainModel);
+                console.log('Brain model loaded successfully!');
+            },
+            function (xhr) {
+                console.log('Loading brain model: ' + (xhr.loaded / xhr.total * 100) + '%');
+            },
+            function (error) {
+                console.log('Creating fallback visualization');
+                
+                // Enhanced fallback - white color
+                const geometry = new THREE.IcosahedronGeometry(1.2, 3);
+                const material = new THREE.MeshPhongMaterial({
+                    color: 0xffffff,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.85,
+                    emissive: 0xffffff,
+                    emissiveIntensity: 0.4
+                });
+                brainModel = new THREE.Mesh(geometry, material);
+                
+                const innerGeometry = new THREE.IcosahedronGeometry(0.9, 2);
+                const innerMaterial = new THREE.MeshPhongMaterial({
+                    color: 0xffffff,
+                    wireframe: true,
+                    transparent: true,
+                    opacity: 0.6,
+                    emissive: 0xffffff,
+                    emissiveIntensity: 0.3
+                });
+                const innerMesh = new THREE.Mesh(innerGeometry, innerMaterial);
+                brainModel.add(innerMesh);
+                
+                scene.add(brainModel);
+            }
+        );
+
+        // Animation with subtle floating effect
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.01;
+            
+            if (brainModel) {
+                brainModel.rotation.y += 0.004;
+                brainModel.rotation.x += 0.002;
+                brainModel.position.y = Math.sin(time) * 0.1;
+            }
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+
+        window.addEventListener('resize', () => {
+            const container = document.querySelector('.hero-3d-model');
+            if (container) {
+                camera.aspect = 1;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.offsetWidth, container.offsetHeight);
+            }
+        });
+    </script>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active nav indicator for both navbars
+        const sections = document.querySelectorAll('section');
+        const floatingNavLinks = document.querySelectorAll('.floating-nav a');
+        const topNavLinks = document.querySelectorAll('.top-nav a[href^="#"]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            // Update floating nav
+            floatingNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Update top nav
+            topNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -120px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
