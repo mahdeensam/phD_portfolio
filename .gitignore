@@ -1,0 +1,9 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Local tooling
+.claude/
+
+# Local working backup of the previous design
+index.original-backup.html
