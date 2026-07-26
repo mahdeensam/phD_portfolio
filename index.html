@@ -1458,10 +1458,77 @@
             will-change: transform;
         }
 
-        /* --- publications read better with tighter measure --- */
+        /* --- publications: two columns so the right half is not dead space ---
+           Auto-placement handles both shapes: the three papers wrap their
+           title block in .publication-main, while each talk's <h4> and
+           <p> fall naturally into the two columns.                      */
+        .publication {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 3rem;
+            align-items: start;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
         .publication-title {
-            max-width: 60ch;
+            max-width: 32ch;
             letter-spacing: -0.005em;
+        }
+
+        .publication-meta {
+            margin-bottom: 0;
+        }
+
+        /* the original hover shifted padding by 3rem, which squeezed the
+           new second column; keep the accent bar, soften the shift */
+        .publication:hover {
+            padding-left: 1.25rem;
+        }
+
+        .publication-summary {
+            color: var(--warm-gray);
+            font-size: 0.98rem;
+            line-height: 1.8;
+            margin: 0;
+            padding-left: 2rem;
+            border-left: 2px solid var(--light-gray);
+            transition: border-color 0.4s ease;
+        }
+
+        .publication:hover .publication-summary {
+            border-left-color: var(--accent-gold);
+        }
+
+        /* the talks put their description straight into column two */
+        .talks-list .publication .publication-meta {
+            padding-left: 2rem;
+            border-left: 2px solid var(--light-gray);
+            line-height: 1.8;
+            font-size: 0.98rem;
+            transition: border-color 0.4s ease;
+        }
+
+        .talks-list .publication:hover .publication-meta {
+            border-left-color: var(--accent-gold);
+        }
+
+        .talks-list .publication-title {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 860px) {
+            .publication {
+                grid-template-columns: 1fr;
+                gap: 1.1rem;
+            }
+
+            .publication-title { max-width: 100%; }
+
+            .publication-summary,
+            .talks-list .publication .publication-meta {
+                padding-left: 1.25rem;
+            }
         }
 
         .current-work p,
@@ -2620,22 +2687,31 @@
         </div>
 
         <div class="publication fade-in">
-            <h4 class="publication-title">Bridging the Gap: Integrating FinTech into Higher Education for Financial Literacy and Innovation</h4>
-            <p class="publication-meta">Khan, M. S. (2025).</p>
+            <div class="publication-main">
+                <h4 class="publication-title">Bridging the Gap: Integrating FinTech into Higher Education for Financial Literacy and Innovation</h4>
+                <p class="publication-meta">Khan, M. S. (2025).</p>
+            </div>
+            <p class="publication-summary">Argues that financial literacy fails when it is treated as content to be delivered rather than as a learning experience to be designed, and maps how FinTech tools can be built into higher education curricula.</p>
         </div>
 
         <div class="publication fade-in">
-            <h4 class="publication-title">AI-Enhanced Adaptive Learning in FinTech Education: Personalizing Financial Training</h4>
-            <p class="publication-meta">Khan, M. S. (2025).</p>
+            <div class="publication-main">
+                <h4 class="publication-title">AI-Enhanced Adaptive Learning in FinTech Education: Personalizing Financial Training</h4>
+                <p class="publication-meta">Khan, M. S. (2025).</p>
+            </div>
+            <p class="publication-summary">Applies adaptive learning models to financial training, personalising instruction to what a learner already knows instead of moving everyone through one fixed curriculum.</p>
         </div>
 
         <div class="publication fade-in">
-            <h4 class="publication-title">Visceral Adiposity Index in Type 2 Diabetes Mellitus and Its Risk for Cardiovascular Disease</h4>
-            <p class="publication-meta">Parveen, K. H., et al. (2023). Journal of Dhaka Medical College, 30(1), 68–75.</p>
-            <span class="publication-status" style="background: var(--accent-gold);">Published</span>
+            <div class="publication-main">
+                <h4 class="publication-title">Visceral Adiposity Index in Type 2 Diabetes Mellitus and Its Risk for Cardiovascular Disease</h4>
+                <p class="publication-meta">Parveen, K. H., et al. (2023). <em>Journal of Dhaka Medical College, 30</em>(1), 68–75.</p>
+                <span class="publication-status" style="background: var(--accent-gold);">Published</span>
+            </div>
+            <p class="publication-summary">A co-authored clinical study evaluating visceral adiposity as a predictor of cardiovascular risk among patients with type 2 diabetes.</p>
         </div>
 
-        <div style="margin-top: 4rem;">
+        <div class="talks-list" style="margin-top: 4rem;">
             <h3 style="font-family: 'Crimson Pro', serif; font-size: 2.25rem; margin-bottom: 2.5rem; color: var(--primary-dark); font-weight: 700;">Selected Conference Presentations</h3>
             
             <div class="publication fade-in">
