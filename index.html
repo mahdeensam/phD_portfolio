@@ -8,12 +8,12 @@
     <meta name="author" content="Mahdeen Sameer Khan">
     <link rel="canonical" href="https://www.sameernetwork.com/">
 
-    <link rel="icon" href="favicon.ico" sizes="any">
-    <link rel="icon" type="image/svg+xml" href="images/favicon/favicon.svg">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
-    <link rel="manifest" href="site.webmanifest">
+    <link rel="icon" href="favicon.ico?v=2" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="images/favicon/favicon.svg?v=2">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png?v=2">
+    <link rel="manifest" href="site.webmanifest?v=2">
     <meta name="theme-color" content="#8B1538">
 
     <meta property="og:type" content="profile">
@@ -1470,6 +1470,42 @@
             max-width: 68ch;
         }
 
+        /* --- semi-transparent hero portrait ---------------------------
+           Sits above the video overlay but below the copy (z-2) and the
+           3D model (z-3). Vignette-masked so the studio backdrop never
+           reads as a rectangle against the video.                     */
+        .hero-portrait {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 92%;
+            width: auto;
+            max-width: 44%;
+            object-fit: contain;
+            object-position: bottom left;
+            opacity: 0.22;
+            z-index: 1;
+            pointer-events: none;
+            user-select: none;
+            filter: grayscale(0.45) contrast(1.06);
+            -webkit-mask-image: radial-gradient(ellipse 70% 78% at 34% 46%, #000 26%, rgba(0, 0, 0, 0.5) 54%, transparent 78%);
+            mask-image: radial-gradient(ellipse 70% 78% at 34% 46%, #000 26%, rgba(0, 0, 0, 0.5) 54%, transparent 78%);
+            animation: heroPortraitIn 2s cubic-bezier(0.4, 0, 0.2, 1) 0.9s backwards;
+        }
+
+        @keyframes heroPortraitIn {
+            from { opacity: 0; transform: translateX(-45px) scale(1.03); }
+            to   { opacity: 0.22; transform: translateX(0) scale(1); }
+        }
+
+        @media (max-width: 1100px) {
+            .hero-portrait { opacity: 0.15; max-width: 52%; }
+        }
+
+        @media (max-width: 820px) {
+            .hero-portrait { display: none; }
+        }
+
         /* --- In Practice photo section --------------------------------
            Section backgrounds are pinned explicitly here: adding a
            section shifts every nth-of-type(odd/even) after it.        */
@@ -1789,6 +1825,158 @@
             }
         }
 
+        /* ==========================================================
+           MOBILE PASS
+           ========================================================== */
+
+        /* iOS text inflation and long-string overflow */
+        html {
+            -webkit-text-size-adjust: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .publication-meta,
+        .contact-item a,
+        .skill-list li,
+        .project-description,
+        footer p {
+            overflow-wrap: break-word;
+        }
+
+        img, video, svg {
+            max-width: 100%;
+        }
+
+        /* ---------- tablets and below ---------- */
+        @media (max-width: 768px) {
+            /* minmax(340px) forced a track wider than the viewport and
+               made the whole page scroll sideways */
+            .research-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-top: 2.5rem;
+            }
+
+            .publication {
+                padding: 1.75rem 0;
+            }
+
+            .contact-grid {
+                gap: 1.5rem;
+                margin-top: 2.5rem;
+            }
+        }
+
+        /* ---------- phones ---------- */
+        @media (max-width: 640px) {
+            /* seven nav items wrapped onto three rows and ate the
+               viewport: make it one swipeable strip instead */
+            .top-nav {
+                padding: 0 0 0 1rem;
+            }
+
+            .top-nav-content {
+                padding: 0.85rem 0;
+                gap: 1rem;
+            }
+
+            .top-nav-logo {
+                font-size: 1.05rem;
+                flex-shrink: 0;
+            }
+
+            .top-nav ul {
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                gap: 1.4rem;
+                overflow-x: auto;
+                scrollbar-width: none;
+                -webkit-overflow-scrolling: touch;
+                padding: 0.35rem 1rem 0.35rem 0;
+                mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+                -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+            }
+
+            .top-nav ul::-webkit-scrollbar { display: none; }
+
+            .top-nav li { flex: 0 0 auto; }
+
+            .top-nav a {
+                font-size: 0.72rem;
+                white-space: nowrap;
+                padding: 0.5rem 0;
+            }
+
+            .hero h1 { line-height: 1.08; }
+
+            .section-title::after { bottom: -0.35rem; }
+
+            .research-card h3 { font-size: 1.6rem; }
+
+            .publication-title { font-size: 1.15rem; }
+
+            .publication-status {
+                margin-top: 0.85rem;
+                font-size: 0.68rem;
+                padding: 0.35rem 0.8rem;
+            }
+
+            .project-media { height: 240px; }
+
+            .project h3 { font-size: 1.5rem; }
+
+            .contact-item { padding: 1.75rem 1.25rem; }
+
+            /* the "Based in Cambridge" block: icon beside text is too
+               tight at this width */
+            #contact [style*="grid-template-columns: auto 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+                text-align: left;
+            }
+
+            #contact [style*="padding: 3.5rem"] {
+                padding: 2rem 1.5rem !important;
+            }
+
+            footer { padding: 3rem 1.25rem; }
+        }
+
+        /* ---------- small phones ---------- */
+        @media (max-width: 400px) {
+            .hero-meta { gap: 0.7rem; }
+            .research-card { padding: 1.6rem 1.35rem; }
+            .current-work { padding: 1.75rem 1.25rem; }
+            .practice-media { height: 220px; }
+            .top-nav ul { gap: 1.15rem; }
+        }
+
+        /* ---------- comfortable tap targets ---------- */
+        @media (hover: none) and (pointer: coarse) {
+            .top-nav a,
+            .floating-nav a,
+            .contact-item a,
+            .hero-btn-ghost {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+
+            .hero-btn { min-height: 48px; }
+
+            /* hover-only reveals never fire on touch */
+            .project:hover,
+            .research-card:hover,
+            .practice-card:hover,
+            .skill-category:hover {
+                transform: none;
+            }
+        }
+
         /* ---------- respect reduced-motion preferences ---------- */
         @media (prefers-reduced-motion: reduce) {
             *,
@@ -1883,6 +2071,10 @@
         
         <!-- Video Overlay -->
         <div class="hero-video-overlay"></div>
+
+        <!-- Semi-transparent portrait -->
+        <img class="hero-portrait" src="images/Mahdeen-Sameer-Khan-hero.jpg"
+             alt="" aria-hidden="true" width="900" height="1224" fetchpriority="low">
         
         <!-- 3D Brain Model -->
         <div class="hero-3d-model">
