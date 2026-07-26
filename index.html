@@ -1493,8 +1493,8 @@
 
         .practice-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.75rem;
             margin-top: 3.5rem;
             align-items: stretch;
         }
@@ -1519,7 +1519,7 @@
 
         .practice-media {
             position: relative;
-            height: 430px;
+            height: 320px;
             overflow: hidden;
             background: var(--primary-dark);
         }
@@ -1532,9 +1532,10 @@
             transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* keep faces in frame: the Harvard shot sits low, the Maine shot centres */
-        .practice-card:first-child .practice-media img { object-position: center 64%; }
-        .practice-card:last-child .practice-media img  { object-position: center 46%; }
+        /* keep subjects in frame: each photo crops differently at this ratio */
+        .practice-card:nth-child(1) .practice-media img { object-position: center 66%; }
+        .practice-card:nth-child(2) .practice-media img { object-position: 58% center; }
+        .practice-card:nth-child(3) .practice-media img { object-position: center 46%; }
 
         .practice-card:hover .practice-media img {
             transform: scale(1.045);
@@ -1563,6 +1564,7 @@
         }
 
         .practice-tag.e { background: rgba(139, 21, 56, 0.88); }
+        .practice-tag.b { background: rgba(26, 26, 26, 0.85); color: var(--accent-gold); }
         .practice-tag.f { background: rgba(107, 76, 30, 0.88); }
 
         .practice-body {
@@ -1587,7 +1589,16 @@
             font-size: 0.98rem;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1100px) {
+            .practice-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 2rem;
+            }
+
+            .practice-media { height: 360px; }
+        }
+
+        @media (max-width: 780px) {
             .practice-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -2145,12 +2156,12 @@
     <section id="practice">
         <div class="section-header">
             <div class="section-label">People</div>
-            <h2 class="section-title">Two Tracks, Two Communities</h2>
+            <h2 class="section-title">Three Rooms, One Practice</h2>
         </div>
 
         <p class="practice-intro">
-            The dual practice is not an abstraction. It is two sets of colleagues, two buildings, and two
-            standards of evidence that keep sharpening each other.
+            The practice is not an abstraction. It is three sets of colleagues and three buildings, held
+            together by one standard of evidence carried between them.
         </p>
 
         <div class="practice-grid">
@@ -2167,6 +2178,24 @@
                         Learning sciences is a team discipline. The questions that matter, how children build
                         knowledge and what evidence should count as proof, get argued out with the people in
                         this room long before they reach a paper.
+                    </p>
+                </figcaption>
+            </figure>
+
+            <figure class="practice-card fade-in">
+                <div class="practice-media">
+                    <span class="practice-tag b">Enterprise</span>
+                    <img src="images/Mahdeen-Sameer-Khan-Harvard-Business-School.jpg"
+                         alt="Mahdeen (Sameer) Khan at Harvard Business School"
+                         loading="lazy" width="1500" height="1125">
+                </div>
+                <figcaption class="practice-body">
+                    <h3>Harvard Business School</h3>
+                    <p>
+                        MBA coursework brought an entrepreneurial mindset to the education question. Rigorous
+                        research answers whether something works; building something that survives contact with
+                        the real world, funds itself, and actually reaches the students who need it is a
+                        different discipline. This is the room where the two stopped being separate careers.
                     </p>
                 </figcaption>
             </figure>
