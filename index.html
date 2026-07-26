@@ -1470,6 +1470,138 @@
             max-width: 68ch;
         }
 
+        /* --- In Practice photo section --------------------------------
+           Section backgrounds are pinned explicitly here: adding a
+           section shifts every nth-of-type(odd/even) after it.        */
+        #research { background: var(--pure-white); }
+        #publications { background: var(--cream); }
+
+        #practice {
+            background: var(--cream);
+            position: relative;
+        }
+
+        .practice-intro {
+            font-family: 'Lora', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--warm-gray);
+            max-width: 62ch;
+            margin-top: -3rem;
+        }
+
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2.5rem;
+            margin-top: 3.5rem;
+            align-items: stretch;
+        }
+
+        .practice-card {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            background: var(--pure-white);
+            border: 1px solid var(--light-gray);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.5s ease;
+        }
+
+        .practice-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 28px 55px rgba(0, 0, 0, 0.11),
+                        0 12px 24px rgba(139, 21, 56, 0.06);
+        }
+
+        .practice-media {
+            position: relative;
+            height: 430px;
+            overflow: hidden;
+            background: var(--primary-dark);
+        }
+
+        .practice-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* keep faces in frame: the Harvard shot sits low, the Maine shot centres */
+        .practice-card:first-child .practice-media img { object-position: center 64%; }
+        .practice-card:last-child .practice-media img  { object-position: center 46%; }
+
+        .practice-card:hover .practice-media img {
+            transform: scale(1.045);
+        }
+
+        .practice-media::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(26, 26, 26, 0.28) 0%, transparent 32%, transparent 62%, rgba(26, 26, 26, 0.32) 100%);
+            pointer-events: none;
+        }
+
+        .practice-tag {
+            position: absolute;
+            top: 1.35rem;
+            left: 1.35rem;
+            z-index: 2;
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            padding: 0.5rem 0.95rem;
+            color: var(--pure-white);
+            backdrop-filter: blur(6px);
+        }
+
+        .practice-tag.e { background: rgba(139, 21, 56, 0.88); }
+        .practice-tag.f { background: rgba(107, 76, 30, 0.88); }
+
+        .practice-body {
+            padding: 2.25rem 2rem 2.5rem;
+            flex: 1;
+            border-top: 3px solid transparent;
+            border-image: linear-gradient(90deg, var(--accent-burgundy), var(--accent-gold)) 1;
+        }
+
+        .practice-body h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.9rem;
+            line-height: 1.25;
+        }
+
+        .practice-body p {
+            color: var(--warm-gray);
+            line-height: 1.8;
+            font-size: 0.98rem;
+        }
+
+        @media (max-width: 900px) {
+            .practice-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .practice-media { height: 340px; }
+            .practice-intro { margin-top: -1.5rem; font-size: 1.08rem; }
+        }
+
+        @media (max-width: 640px) {
+            .practice-media { height: 260px; }
+            .practice-body { padding: 1.75rem 1.5rem 2rem; }
+        }
+
         /* --- graphic panel used in place of a mismatched photo --- */
         .project-media-placeholder svg {
             width: 132px;
@@ -1894,6 +2026,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#research">Research</a></li>
                 <li><a href="#current">Current Work</a></li>
+                <li><a href="#practice">People</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#publications">Publications</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -1907,6 +2040,7 @@
             <li><a href="#about"><span class="nav-label">About</span></a></li>
             <li><a href="#research"><span class="nav-label">Research</span></a></li>
             <li><a href="#current"><span class="nav-label">Current</span></a></li>
+            <li><a href="#practice"><span class="nav-label">People</span></a></li>
             <li><a href="#projects"><span class="nav-label">Projects</span></a></li>
             <li><a href="#publications"><span class="nav-label">Publications</span></a></li>
             <li><a href="#contact"><span class="nav-label">Contact</span></a></li>
@@ -2004,6 +2138,56 @@
                     <li>Data Visualization (R Shiny, Tableau)</li>
                 </ul>
             </div>
+        </div>
+    </section>
+
+    <!-- In Practice / People Section -->
+    <section id="practice">
+        <div class="section-header">
+            <div class="section-label">People</div>
+            <h2 class="section-title">Two Tracks, Two Communities</h2>
+        </div>
+
+        <p class="practice-intro">
+            The dual practice is not an abstraction. It is two sets of colleagues, two buildings, and two
+            standards of evidence that keep sharpening each other.
+        </p>
+
+        <div class="practice-grid">
+            <figure class="practice-card fade-in">
+                <div class="practice-media">
+                    <span class="practice-tag e">Education</span>
+                    <img src="images/Mahdeen-Sameer-Khan-Harvard-Cohort.jpg"
+                         alt="Mahdeen (Sameer) Khan with his cohort in a lecture hall at Harvard"
+                         loading="lazy" width="1500" height="2000">
+                </div>
+                <figcaption class="practice-body">
+                    <h3>The Cohort at Harvard</h3>
+                    <p>
+                        Learning sciences is a team discipline. The questions that matter, how children build
+                        knowledge and what evidence should count as proof, get argued out with the people in
+                        this room long before they reach a paper.
+                    </p>
+                </figcaption>
+            </figure>
+
+            <figure class="practice-card fade-in">
+                <div class="practice-media">
+                    <span class="practice-tag f">Finance</span>
+                    <img src="images/Mahdeen-Sameer-Khan-Private-Equity-Team.jpg"
+                         alt="Mahdeen (Sameer) Khan with the private equity team where his analytical career began"
+                         loading="lazy" width="1500" height="998">
+                </div>
+                <figcaption class="practice-body">
+                    <h3>Where It Started</h3>
+                    <p>
+                        The private equity internship taught him everything, and every method on this site
+                        traces back to it. Building investment models alongside this team is where he learned
+                        that a model is only as good as the assumption you are least willing to defend, a habit
+                        that transfers directly to asking whether an educational intervention actually worked.
+                    </p>
+                </figcaption>
+            </figure>
         </div>
     </section>
 
