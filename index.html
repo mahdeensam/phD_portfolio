@@ -1646,8 +1646,8 @@
 
         .practice-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1.75rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 2rem;
             margin-top: 3.5rem;
             align-items: stretch;
         }
@@ -1672,7 +1672,7 @@
 
         .practice-media {
             position: relative;
-            height: 320px;
+            height: 360px;
             overflow: hidden;
             background: var(--primary-dark);
         }
@@ -1686,9 +1686,10 @@
         }
 
         /* keep subjects in frame: each photo crops differently at this ratio */
-        .practice-card:nth-child(1) .practice-media img { object-position: center 66%; }
-        .practice-card:nth-child(2) .practice-media img { object-position: 58% center; }
+        .practice-card:nth-child(1) .practice-media img { object-position: center 62%; }
+        .practice-card:nth-child(2) .practice-media img { object-position: 56% 38%; }
         .practice-card:nth-child(3) .practice-media img { object-position: center 46%; }
+        .practice-card:nth-child(4) .practice-media img { object-position: center 26%; }
 
         .practice-card:hover .practice-media img {
             transform: scale(1.045);
@@ -1718,6 +1719,7 @@
 
         .practice-tag.e { background: rgba(139, 21, 56, 0.88); }
         .practice-tag.b { background: rgba(26, 26, 26, 0.85); color: var(--accent-gold); }
+        .practice-tag.p { background: rgba(45, 66, 52, 0.88); }
         .practice-tag.f { background: rgba(107, 76, 30, 0.88); }
 
         .practice-body {
@@ -1740,15 +1742,6 @@
             color: var(--warm-gray);
             line-height: 1.8;
             font-size: 0.98rem;
-        }
-
-        @media (max-width: 1100px) {
-            .practice-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 2rem;
-            }
-
-            .practice-media { height: 360px; }
         }
 
         @media (max-width: 780px) {
@@ -2465,12 +2458,12 @@
     <section id="practice">
         <div class="section-header">
             <div class="section-label">People</div>
-            <h2 class="section-title">Three Rooms, One Practice</h2>
+            <h2 class="section-title">Four Rooms, One Practice</h2>
         </div>
 
         <p class="practice-intro">
-            The practice is not an abstraction. It is three sets of colleagues and three buildings, held
-            together by one standard of evidence carried between them.
+            The practice is not an abstraction. It is four sets of colleagues and four rooms, held together by
+            one standard of evidence carried between them.
         </p>
 
         <div class="practice-grid">
@@ -2501,10 +2494,11 @@
                 <figcaption class="practice-body">
                     <h3>Harvard Business School</h3>
                     <p>
-                        MBA coursework brought an entrepreneurial mindset to the education question. Rigorous
-                        research answers whether something works; building something that survives contact with
-                        the real world, funds itself, and actually reaches the students who need it is a
-                        different discipline. This is the room where the two stopped being separate careers.
+                        MBA coursework brought an entrepreneurial mindset to the education question, sharpened
+                        in Shark Tank style pitch sessions at HBS. Rigorous research answers whether something
+                        works; building something that survives contact with the real world, funds itself, and
+                        actually reaches the students who need it is a different discipline. This is the room
+                        where the two stopped being separate careers.
                     </p>
                 </figcaption>
             </figure>
@@ -2524,6 +2518,24 @@
                         the way that a model is only as good as the assumption you are least willing to defend.
                         Every method on this site traces back to that private equity experience, and the habit
                         transfers directly to asking whether an educational intervention actually worked.
+                    </p>
+                </figcaption>
+            </figure>
+
+            <figure class="practice-card fade-in">
+                <div class="practice-media">
+                    <span class="practice-tag p">Policy</span>
+                    <img src="images/Mahdeen-Sameer-Khan-Ambassador-Pakistan.jpg"
+                         alt="Mahdeen (Sameer) Khan with the Ambassador of Pakistan to the United States at Harvard Graduate School of Education"
+                         loading="lazy" width="1014" height="1395">
+                </div>
+                <figcaption class="practice-body">
+                    <h3>A Candid Conversation</h3>
+                    <p>
+                        In conversation with the Ambassador of Pakistan to the United States at a fireside chat
+                        hosted by the Pakistan Student Association at HGSE, on foreign relations, emerging
+                        technology and building bridges. Education access is not only a design problem. It is a
+                        policy one, and the rooms where that gets decided matter.
                     </p>
                 </figcaption>
             </figure>
@@ -2889,6 +2901,7 @@
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
         import * as THREE from 'three';
         import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
         // Initialize 3D Brain Model
         const canvas = document.getElementById('brain-model');
@@ -2924,7 +2937,11 @@
         scene.add(pointLight3);
 
         // Load GLTF Model
+        // model is Draco-compressed (17MB -> 0.9MB); decoder is lazy-loaded
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/');
         const loader = new GLTFLoader();
+        loader.setDRACOLoader(dracoLoader);
         let brainModel;
 
         loader.load(

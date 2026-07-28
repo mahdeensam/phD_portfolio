@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://edsameer.com/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://edsameer.com/images/Mahdeen-Sameer-Khan.jpeg</image:loc>
+      <image:title>Mahdeen (Sameer) Khan</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://edsameer.com/images/Mahdeen-Sameer-Khan-Harvard-Business-School.jpg</image:loc>
+      <image:title>Mahdeen (Sameer) Khan at Harvard Business School</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://edsameer.com/images/Mahdeen-Sameer-Khan-Ambassador-Pakistan.jpg</image:loc>
+      <image:title>Mahdeen (Sameer) Khan with the Ambassador of Pakistan to the United States</image:title>
+    </image:image>
+  </url>
+</urlset>
